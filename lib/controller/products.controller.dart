@@ -21,7 +21,7 @@ class ProductsController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     productFB.bindStream(FirestoreDB().getAllProducts());
-    Future.delayed(Duration(seconds: 1), initailState);
+    Future.delayed(Duration(seconds: 3), initailState);
     super.onInit();
   }
 

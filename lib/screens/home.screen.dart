@@ -285,71 +285,77 @@ class _HomeScreenState extends State<HomeScreen> {
           itemCount: productsController.product.length,
           itemBuilder: (context, index) {
             var value = productsController.product[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: GestureDetector(
-                onTap: () {
-                  // print(value.proId);
-                  Get.toNamed('/detail', arguments: [
-                    value.image,
-                    value.brand,
-                    value.model,
-                    value.detail,
-                    value.price,
-                  ]);
-                },
-                child: Container(
-                  width: size.width,
-                  height: size.height,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
-                    ),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      ZoomIn(
-                        delay: Duration(milliseconds: 500),
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                            image: NetworkImage(value.image),
-                            fit: BoxFit.contain,
-                          )),
-                        ),
+            return LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+              print(size.width);
+              print(constraints.maxWidth);
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                child: GestureDetector(
+                  onTap: () {
+                    // print(value.proId);
+                    Get.toNamed('/detail', arguments: [
+                      value.image,
+                      value.brand,
+                      value.model,
+                      value.detail,
+                      value.price,
+                    ]);
+                  },
+                  child: Container(
+                    width: constraints.maxWidth,
+                    height: constraints.maxWidth,
+                    decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
                       ),
-                      SizedBox(height: 10),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: ElasticIn(
-                          delay: Duration(milliseconds: 200),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ZoomIn(
+                          delay: Duration(milliseconds: 500),
+                          child: Container(
+                            width: 120,
+                            height: 120,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                              image: NetworkImage(value.image),
+                              fit: BoxFit.contain,
+                            )),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: ElasticIn(
+                            delay: Duration(milliseconds: 200),
+                            child: Text(
+                              value.model,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 12),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        ElasticIn(
+                          delay: Duration(milliseconds: 10 * (index * 2)),
                           child: Text(
-                            value.model,
-                            overflow: TextOverflow.ellipsis,
+                            '฿ ${NumberFormat.decimalPattern().format(value.price)}',
                             style: TextStyle(fontSize: 12),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 10),
-                      ElasticIn(
-                        delay: Duration(milliseconds: 10 * (index * 2)),
-                        child: Text(
-                          '฿ ${NumberFormat.decimalPattern().format(value.price)}',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
+              );
+            });
           },
         );
       }),
