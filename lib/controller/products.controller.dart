@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -208,7 +209,11 @@ class ProductsController extends GetxController {
       required int price,
       required String image}) async {
     try {
+      Random random = new Random();
+      int randomNumber = random.nextInt(100);
+
       _firebaseFirestore.collection('Products').add({
+        // 'ProId': '0',
         'Brand': brand,
         'Model': model,
         'Details': detail,
@@ -219,15 +224,18 @@ class ProductsController extends GetxController {
         'image': image,
       }).then((value) {
         Get.snackbar('Notification 🔔', 'Upload Product Success');
-        brandController.clear();
-        modelController.clear();
-        detailController.clear();
-        microphoneController.clear();
-        lineController.clear();
-        typeController.clear();
-        priceController.clear();
-        this.image == null;
       });
+
+      Get.back();
+
+      brandController.clear();
+      modelController.clear();
+      detailController.clear();
+      microphoneController.clear();
+      lineController.clear();
+      typeController.clear();
+      priceController.clear();
+      this.image == null;
     } catch (e) {
       print(e);
     }

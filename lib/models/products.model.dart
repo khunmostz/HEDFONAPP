@@ -1,11 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Products {
-  late String proId, model, type, microphone, line, detail, image, brand;
+  late String model, type, microphone, line, detail, image, brand;
   late int price;
   Products(
-      {required this.proId,
-      required this.model,
+      {required this.model,
       required this.type,
       required this.microphone,
       required this.line,
@@ -16,7 +15,7 @@ class Products {
 
   static Products fromSnapshot(DocumentSnapshot snap) {
     Products Product = Products(
-        proId: snap['ProId'],
+        // proId: snap['ProId'],
         model: snap['Model'],
         type: snap['Type'],
         microphone: snap['Microphone'],

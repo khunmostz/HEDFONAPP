@@ -223,7 +223,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                             line: productsController.lineController.text.trim(),
                             type: productsController.typeController.text.trim(),
                             price: int.parse(
-                                productsController.priceController.text.trim()),
+                                productsController.priceController.text),
                             image: productsController.pathImageStore,
                           );
                         },

@@ -3,17 +3,20 @@ import 'package:hedfon_app/models/products.model.dart';
 
 class FirestoreDB {
   // Initialize Firebase Cloud Firestore
-  final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
+  // final FirebaseFirestore _firebaseFirestore = FirebaseFirestore.instance;
 
   Stream<List<Products>> getAllProducts() {
-    return _firebaseFirestore
+    return FirebaseFirestore.instance
         .collection('Products')
         .orderBy('Price', descending: false)
         // .where('category', isEqualTo: 'Gucci')
         .snapshots()
         .map((snapshot) {
-      // print(snapshot.docs[0]['Line']);
-      return snapshot.docs.map((doc) => Products.fromSnapshot(doc)).toList();
+      print(snapshot.docs.length);
+      return snapshot.docs
+          // .sublist(0, 10)
+          .map((doc) => Products.fromSnapshot(doc))
+          .toList();
     });
   }
 }
